@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Expense Tracker Auth</title>
+  <link rel="stylesheet" href="auth.css" />
+</head>
+<body>
+<div class="auth-container">
+  <div class="auth-card">
+    <h1>Expense Tracker</h1>
+    <p class="subtitle" id="authSubtitle">Login to manage your expenses</p>
+
+    <div id="nameFields" style="display:none;">
+      <input type="text" id="firstName" placeholder="First Name" />
+      <input type="text" id="lastName" placeholder="Last Name" />
+    </div>
+
+    <input type="email" id="email" placeholder="Email address" />
+    <input type="password" id="password" placeholder="Password" />
+
+    <input
+      type="password"
+      id="confirmPassword"
+      placeholder="Confirm Password"
+      style="display:none;"
+    />
+
+    <p id="authError" class="error-text"></p>
+
+    <button class="btn-primary" id="loginBtn" onclick="login()">Login</button>
+    <button class="btn-secondary" id="signupBtn" onclick="signup()" style="display:none;">
+      Sign Up
+    </button>
+
+    <p class="hint">
+      <span id="toggleText">New user?</span>
+      <a href="#" onclick="toggleSignup()">Create an account</a>
+    </p>
+  </div>
+</div>
+<script type="module" src="auth.js"></script>
+</body>
+</html>

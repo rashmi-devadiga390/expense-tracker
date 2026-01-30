@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Expense Tracker Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <div class="top-bar">
+    <div>
+      <h1><b>Expense Tracker</b></h1>
+      <p class="subtitle">
+        Track your spending, manage your budget, and achieve your financial goals.
+      </p>
+    </div>
+    <div class="actions">
+      <button class="btn-outline" onclick="logout()">➜] Logout</button>
+      <button class="btn-outline" onclick="openChartModal()">📊 Chart</button>
+      <button class="btn-outline" onclick="downloadReport()">⬇ Download</button>
+      <button class="btn-primary" onclick="openForm()">＋ Add Expense</button>
+    </div>
+  </div>
+
+  <div class="month-row">
+    <div class="month-box">
+      <span class="nav" onclick="changeMonth(-1)">‹</span>
+      <span id="currentMonth">December 2025</span>
+      <span class="nav" onclick="changeMonth(1)">›</span>
+    </div>
+    <span class="tx-count" id="transactionCount">
+    0 transactions this month
+    </span>
+  </div>
+
+  <div class="summary-grid">
+    <div class="summary-card purple">
+      <span>Total Spent</span>
+      <h3 id="totalSpent">₹0.00</h3>
+    </div>
+    <div class="summary-card green">
+      <span>Total Expenses</span>
+      <h3 id="totalExpenses">0</h3>
+    </div>
+    <div class="summary-card orange">
+      <span>Average Cost</span>
+      <h3 id="avgCost">₹0.00</h3>
+    </div>
+    <div class="summary-card red">
+      <span>Highest Expense</span>
+      <h3 id="highest">₹0.00</h3>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="section-title">Spending by Category</h3>
+    <div id="categories"></div>
+  </div>
+
+  <div class="card">
+    <div class="tx-header">
+      <h3 class="section-title">Transactions</h3>
+      <button class="filter-btn" onclick="openFilterModal()">⮟ Filter</button>
+    </div>
+
+    <div id="transactions"></div>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <h2>New Expense</h2>
+
+    <input id="title" placeholder="Title">
+    <small class="error" id="titleError"></small>
+
+    <input id="amount" type="number" placeholder="Amount (₹)">
+    <small class="error" id="amountError"></small>
+
+    <select id="category">
+      <option value="" disabled selected>Select a category</option>
+      <option>Food & Dining</option>
+      <option>Bills & Utilities</option>
+      <option>Movies</option>
+      <option>Shopping</option>
+      <option>Entertainment</option>
+      <option>Transport</option>
+      <option>Health</option>
+      <option>Gadgets</option>
+      <option>Clothes</option>
+      <option>Other</option>
+    </select>
+    <small class="error" id="categoryError"></small>
+
+    <textarea id="description" placeholder="Add some details (optional)"></textarea>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeForm()">Cancel</button>
+      <button class="btn-primary" onclick="addExpense()">Save Expense</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/main.js"></script>
+<div class="modal" id="deleteModal">
+  <div class="modal-box">
+    <h3>Delete this expense?</h3>
+    <p style="font-size:13px;color:#6b7280">
+      This action cannot be undone
+    </p>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeDeleteModal()">Cancel</button>
+      <button class="btn-primary" onclick="confirmDelete()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="filterModal">
+  <div class="modal-box">
+    <h3>Filter Transactions</h3>
+    <select id="filterType">
+      <option value="">Select filter</option>
+      <option value="az">Alphabetical (A–Z)</option>
+      <option value="lowHigh">Amount: Low → High</option>
+      <option value="highLow">Amount: High → Low</option>
+      <option value="date">By Date</option>
+      <option value="category">By Category</option>
+    </select>
+    <input type="date" id="filterDate" style="display:none">
+    <select id="filterCategory" style="display:none"></select>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeFilterModal()">Cancel</button>
+      <button class="btn-primary" onclick="applyFilter()">OK</button>
+    </div>
+  </div>
+</div>
+
+<div id="chartModal" class="chart-modal">
+  <div class="chart-box">
+    <div class="chart-header">
+      <h3>Expense Chart</h3>
+      <div class="chart-actions">
+        <button onclick="showMonthChart()">Month</button>
+        <button onclick="showYearChart()">Year</button>
+        <button onclick="closeChartModal()">✕</button>
+      </div>
+    </div>
+    <div class="chart-container">
+      <canvas id="expenseChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="module" src="js/chart.js"></script>
+<script type="module" src="auth.js"></script>
+</body>
+</html>
